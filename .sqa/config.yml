@@ -1,0 +1,62 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/1.7.10
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    gitlab.cern.ch/duarte/corryvreckan:
+      branch: master
+      repo: https://gitlab.cern.ch/duarte/corryvreckan
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      gitlab.cern.ch/duarte/corryvreckan git:
+        commands:
+        - /usr/bin/env sh .sqa/script.zippy-buff-octopus.sh
+        container: qc.acc_sleazy-apricot-koala
+  QC.Doc:
+    repos:
+      gitlab.cern.ch/duarte/corryvreckan find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.homey-crimson-sponge.sh
+        container: qc.doc_snoopy-cream-dragonfly
+      gitlab.cern.ch/duarte/corryvreckan git:
+        commands:
+        - /usr/bin/env sh .sqa/script.pokey-xanthic-frigatebird.sh
+        container: qc.doc_scaly-persimmon-catfish
+      gitlab.cern.ch/duarte/corryvreckan markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.squirrely-tan-orangutan.sh
+        container: qc.doc_lumpy-eggplant-cuttlefish
+  QC.Lic:
+    repos:
+      gitlab.cern.ch/duarte/corryvreckan licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.snoopy-cream-wallaby.sh
+        container: qc.lic_snazzy-amaranth-lion
+  QC.Sec:
+    repos:
+      gitlab.cern.ch/duarte/corryvreckan bandit:
+        commands:
+        - /usr/bin/env sh .sqa/script.tacky-green-gerbil.sh
+        container: qc.sec_flabby-coral-raccoon
+  QC.Sty:
+    repos:
+      gitlab.cern.ch/duarte/corryvreckan flake8:
+        commands:
+        - /usr/bin/env sh .sqa/script.pasty-emerald-sparrow.sh
+        container: qc.sty_bluesy-coral-wolverine
+      gitlab.cern.ch/duarte/corryvreckan hadolint:
+        commands:
+        - /usr/bin/env sh .sqa/script.tasty-harlequin-zebu.sh
+        container: qc.sty_scaly-asparagus-horse
+  QC.Ver:
+    repos:
+      gitlab.cern.ch/duarte/corryvreckan get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.lousy-orchid-gorilla.sh
+        container: qc.ver_dorky-copper-insect
+timeout: 5400
